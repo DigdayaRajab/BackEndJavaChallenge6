@@ -1,17 +1,19 @@
 package com.binar.challenge5.controller;
 
-
 import com.binar.challenge5.entities.Seats;
-import com.binar.challenge5.model.CommonResponse;
 import com.binar.challenge5.model.CommonResponseGenerator;
 import com.binar.challenge5.service.Interface.SeatsService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@Slf4j
 @RestController
-@RequestMapping("/seats")
+@RequestMapping("/api/seats")
 public class SeatsController {
 
     @Autowired
@@ -20,39 +22,47 @@ public class SeatsController {
     CommonResponseGenerator commonResponseGenerator;
 
     @PostMapping(value = "/add", produces = "application/json", consumes = "application/json")
-    public CommonResponse<ResponseEntity> addSeats(@RequestBody Seats seat) {
+    public ResponseEntity addSeats(@RequestBody Seats seat) {
         try {
-            return commonResponseGenerator.successResponse(new ResponseEntity(seatsService.newSeats(seat), HttpStatus.OK).getBody(), "Success add data");
+            Seats response = seatsService.newSeats(seat);
+            return new ResponseEntity(commonResponseGenerator.successResponse(response, "successful add data"), HttpStatus.OK);
         } catch (Exception e) {
-            return commonResponseGenerator.failedResponse(new ResponseEntity("", HttpStatus.NO_CONTENT), e.getMessage());
+            log.error("Update, Error : " + e.getMessage());
+            return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping(value = "getAllSeats")
-    public CommonResponse<ResponseEntity> getAll() {
-        try {
-            return commonResponseGenerator.successResponse(new ResponseEntity(seatsService.findAllSeats(), HttpStatus.OK).getBody(), "Success");
-        } catch (Exception e) {
-            return commonResponseGenerator.failedResponse(new ResponseEntity("", HttpStatus.NO_CONTENT), e.getMessage());
-        }
-    }
 
     @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
-    public CommonResponse<ResponseEntity> updateSeat(@RequestBody Seats seat) {
+    public ResponseEntity updateSeat(@RequestBody Seats seat) {
         try {
-            return commonResponseGenerator.successResponse(new ResponseEntity(seatsService.updateSeats(seat), HttpStatus.OK).getBody(), "Success update data");
+            Seats response = seatsService.updateSeats(seat);
+            return new ResponseEntity(commonResponseGenerator.successResponse(response, "successful update data"), HttpStatus.OK);
         } catch (Exception e) {
-            return commonResponseGenerator.failedResponse(new ResponseEntity("", HttpStatus.NO_CONTENT), e.getMessage());
+            log.error("Update, Error : " + e.getMessage());
+            return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping("/delete")
-    public CommonResponse<ResponseEntity> deleteSeat(@RequestBody Seats seat) {
+    public ResponseEntity deleteSeat(@RequestBody Seats seat) {
         try {
             seatsService.deleteSeats(seat);
-            return commonResponseGenerator.successResponse(new ResponseEntity("", HttpStatus.OK).getBody(), "Success Delete Data");
+            return new ResponseEntity(commonResponseGenerator.successResponse("", "successful delete data"), HttpStatus.OK);
         } catch (Exception e) {
-            return commonResponseGenerator.failedResponse(new ResponseEntity("", HttpStatus.NO_CONTENT), e.getMessage());
+            log.error("Update, Error : " + e.getMessage());
+            return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "getAllSeats")
+    public ResponseEntity getAll() {
+        try {
+            List<Seats> response = seatsService.findAllSeats();
+            return new ResponseEntity(commonResponseGenerator.successResponse(response, "ok"), HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("Update, Error : " + e.getMessage());
+            return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 }

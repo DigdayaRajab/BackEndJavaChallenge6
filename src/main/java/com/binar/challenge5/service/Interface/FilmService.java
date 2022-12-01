@@ -10,8 +10,6 @@ import java.util.List;
 @Service
 public interface FilmService {
 
-    void newFilm(Films film);
-    void deleteFilm(Films film);
 
     Films save(Films films);
 

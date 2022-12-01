@@ -3,9 +3,12 @@ package com.binar.challenge5.service;
 import com.binar.challenge5.entities.Ticket;
 import com.binar.challenge5.repositories.TicketRepository;
 import com.binar.challenge5.service.Interface.TicketService;
+import lombok.extern.slf4j.Slf4j;
+import org.jfree.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class TicketServiceImpl implements TicketService {
     @Autowired
@@ -17,6 +20,7 @@ public class TicketServiceImpl implements TicketService {
             ticketRepository.save(ticket);
             return "upload success";
         }catch(Exception e){
+           log.error("Error has been found because : {}", e.getMessage());
             return e.getMessage();
         }
 

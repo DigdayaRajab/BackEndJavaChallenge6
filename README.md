@@ -1,56 +1,123 @@
 # API Spec Ticket Reservation
-
+- Auth
 - User
 - Film
 - Seat
 - Schedule
 - Invoice
 
-## User
 
-### Create User
-
-Request :
-
-- Method : POST
-- EndPoint : `/users/add`
-- Header :
-    - Content-Type : application/json
-    - Accept : application/json
-- Body :
-
+#
+## Authentication Role
+### Admin Role
+- Film : POST, PUT, DELETE
 ```json
 {
-  "username": "String",
-  "address": "String",
-  "email": "String",
-  "password": "String"
+  "username": "admin",
+  "password": "admin"
 }
 ```
 
-- Response :
+### Customer Role
+- User : PUT, DELETE
+- Invoice : POST
+```json
+{
+  "username": "customer",
+  "password": "customer"
+}
+```
+### All User Role
+- User : POST
+- Film : GET(filmShow)
+- Film : GET(scheduleByFilmName)
 
+
+
+
+#
+## Auth
+### Log in or Sign in
+Request :
+
+- Method : POST
+- EndPoint : `/api/user/signin`
+- Header :
+  - Content-Type : application/json
+  - Accept : application/json
+- Body :
+```json
+{
+  "username": "string, unique",
+  "password": "string"
+}
+```
+- Response :
 ```json
 {
   "code": "number",
   "status": "string",
   "data": {
-    "id_user": "Integer, unique",
-    "username": "String",
+    "id": "Integer, unique",
+    "username": "string, unique",
+    "address": "string",
+    "email": "email, unique",
+    "password": "string",
+    "role": ["ROLES"],
+    "token": "string, unique",
+    "type": "string, bearer"
+  }
+}
+```
+
+
+#
+## User
+### Create User or Sign Up
+Request :
+- Method : POST
+- EndPoint : `/api/user/signup`
+- Header :
+  - Content-Type : application/json
+  - Accept : application/json
+- Body :
+```json
+{
+  "username": "String, Unique",
+  "address": "String",
+  "email": "Email, Unique",
+  "password": "String",
+  "role": ["ROLES *Optional"]
+}
+```
+    
+- Response :
+```json
+{
+  "code": "number",
+  "status": "string",
+  "data": {
+    "id": "Integer, unique",
+    "username": "String, Unique",
     "address": "String",
-    "email": "String",
-    "password": "String"
+    "email": "Email, Unique",
+    "password": "String",
+    "roles": [
+      {
+        "id": "Integer, unique",
+        "name": "ROLE"
+      }
+    ]
   }
 }
 ```
 
 ### Update User
-
 Request :
-
 - Method : PUT
-- EndPoint : `/users/update`
+- EndPoint : `/api/user/update`
 - Header :
+    - Authorization : bearer token
     - Content-Type : application/json
     - Accept : application/json
 - Body :
@@ -61,36 +128,39 @@ Request :
   "username": "String",
   "address": "String",
   "email": "String",
-  "password": "String"
+  "password": "String",
+  "role": ["ROLES"]
 }
 ```
-
 - Response :
-
 ```json
 {
   "code": "number",
   "status": "string",
   "data": {
-    "id_user": "Integer, unique",
-    "username": "String",
+    "id": "Integer, unique",
+    "username": "String, Unique",
     "address": "String",
-    "email": "String",
-    "password": "String"
+    "email": "Email, Unique",
+    "password": "String",
+    "roles": [
+      {
+        "id": "Integer, unique",
+        "name": "ROLE"
+      }
+    ]
   }
 }
 ```
 
 ### Delete User
-
 Request :
-
 - Method : DELETE
-- EndPoint : `/users/delete?{id}`
+- EndPoint : `/api/user/delete?id=`
 - Header :
-    - Accept : application/json
+  - Authorization : bearer token
+  - Accept : application/json
 - Response :
-
 ```json
 {
   "code": "number",
@@ -99,12 +169,12 @@ Request :
 ```
 
 ### List User
-
 Request :
 
 - Method : GET
-- EndPoint : `/users/getAllUser`
-- Header :
+- EndPoint : `/api/user/getAllUser`
+- Header :- Header :
+    - Authorization : bearer token
     - Accept : application/json
 - Response :
 
@@ -118,29 +188,39 @@ Request :
       "username": "String",
       "address": "String",
       "email": "String",
-      "password": "String"
+      "password": "String",
+      "roles": [
+        {
+          "id": "Integer, unique",
+          "name": "ROLE"
+        }
+      ]
     },
     {
       "id_user": "Integer, unique",
       "username": "String",
       "address": "String",
       "email": "String",
-      "password": "String"
+      "password": "String",
+      "roles": [
+        {
+          "id": "Integer, unique",
+          "name": "ROLE"
+        }
+      ]
     }
   ]
 }
 ```
 
 ### Get User by Id
-
 Request :
-
 - Method : GET
-- EndPoint : `/users/search/{id_user}`
+- EndPoint : `/api/user/search/{id_user}`
 - Header :
+    - Authorization : bearer token
     - Accept : application/json
 - Response :
-
 ```json
 {
   "code": "number",
@@ -150,29 +230,31 @@ Request :
     "username": "String",
     "address": "String",
     "email": "String",
-    "password": "String"
+    "password": "String",
+    "roles": [
+      {
+        "id": "Integer, unique",
+        "name": "ROLE"
+      }
+    ]
   }
 }
 ```
 
 ### Get User by name
-
 Request :
-
 - Method : GET
-- EndPoint : `/users/search?`
+- EndPoint : `/api/user/search?username=`
 - Header :
+    - Authorization : bearer token
     - Accept : application/json
 - Params :
-
 ```json
 {
   "username": "String"
 }
 ```
-
 - Response :
-
 ```json
 {
   "code": "number",
@@ -183,14 +265,26 @@ Request :
       "username": "String",
       "address": "String",
       "email": "String",
-      "password": "String"
+      "password": "String",
+      "roles": [
+        {
+          "id": "Integer, unique",
+          "name": "ROLE"
+        }
+      ]
     },
     {
       "id_user": "Integer, unique",
       "username": "String",
       "address": "String",
       "email": "String",
-      "password": "String"
+      "password": "String",
+      "roles": [
+        {
+          "id": "Integer, unique",
+          "name": "ROLE"
+        }
+      ]
     }
   ]
 }
@@ -218,12 +312,11 @@ Request :
 ## Film
 
 ### Create Film
-
 Request :
-
 - Method : POST
-- EndPoint : `/films/add`
+- EndPoint : `/api/film/add`
 - Header :
+    - Authorization : bearer token
     - Content-Type : application/json
     - Accept : application/json
 - Body :
@@ -299,8 +392,9 @@ Request :
 Request :
 
 - Method : PUT
-- EndPoint : `/films/update`
+- EndPoint : `api/film/update`
 - Header :
+    - Authorization : bearer token
     - Content-Type : application/json
     - Accept : application/json
 - Body :
@@ -333,8 +427,9 @@ Request :
 Request :
 
 - Method : DELETE
-- EndPoint : `/films/delete?{id}`
+- EndPoint : `api/film/delete?{id}`
 - Header :
+    - Authorization : bearer token
     - Accept : application/json
 - Response :
 
@@ -350,8 +445,9 @@ Request :
 Request :
 
 - Method : GET
-- EndPoint : `/films/getAllFilm`
+- EndPoint : `/api/film/getAllFilm`
 - Header :
+    - Authorization : bearer token
     - Accept : application/json
 - Response :
 
@@ -416,8 +512,9 @@ Request :
 Request :
 
 - Method : GET
-- EndPoint : `/films/search?`
+- EndPoint : `/api/film/search?`
 - Header :
+    - Authorization : bearer token
     - Accept : application/json
 - Params :
 
@@ -455,11 +552,9 @@ Request :
 ```
 
 ### Get Film by is Showing
-
 Request :
-
 - Method : GET
-- EndPoint : `/films/show`
+- EndPoint : `/api/film/getFilmsShow`
 - Header :
     - Accept : application/json
 - Response :
@@ -490,12 +585,11 @@ Request :
 ```
 
 ### Get Schedule by film name
-
 Request :
-
 - Method : GET
-- EndPoint : `/film/schedule?`
+- EndPoint : `/api/film/getFilmsSchedule?film_name=`
 - Header :
+    - Authorization : bearer token
     - Accept : application/json
 - Params :
 
@@ -551,8 +645,9 @@ Request :
 Request :
 
 - Method : POST
-- EndPoint : `/seats/add`
+- EndPoint : `/api/seats/add`
 - Header :
+    - Authorization : bearer token
     - Content-Type : application/json
     - Accept : application/json
 - Body :
@@ -566,9 +661,7 @@ Request :
   "status": "String"
 }
 ```
-
 - Response :
-
 ```json
 {
   "code": "number",
@@ -584,12 +677,12 @@ Request :
 ```
 
 ### Update Seats
-
 Request :
 
 - Method : PUT
-- EndPoint : `/seats/update`
+- EndPoint : `/api/seats/update`
 - Header :
+  - Authorization : bearer token
   - Content-Type : application/json
   - Accept : application/json
 - Body :
@@ -625,8 +718,9 @@ Request :
 Request :
 
 - Method : GET
-- EndPoint : `/users/getAllSeats`
+- EndPoint : `/api/seats/getAllSeats`
 - Header :
+    - Authorization : bearer token
     - Accept : application/json
 - Response :
 
@@ -657,8 +751,9 @@ Request :
 Request :
 
 - Method : DELETE
-- EndPoint : `/seats/delete`
+- EndPoint : `/api/seats/delete`
 - Header :
+  - Authorization : bearer token
   - Content-Type : application/json
   - Accept : application/json
 - Body :
@@ -696,8 +791,9 @@ Request :
 Request :
 
 - Method : POST
-- EndPoint : `/schedules/add`
+- EndPoint : `/api/schedules/add`
 - Header :
+  - Authorization : bearer token
   - Content-Type : application/json
   - Accept : application/json
 - Body :
@@ -734,8 +830,9 @@ Request :
 Request :
 
 - Method : PUT
-- EndPoint : `/schedules/update`
+- EndPoint : `api/schedules/update`
 - Header :
+  - Authorization : bearer token
   - Content-Type : application/json
   - Accept : application/json
 - Body :
@@ -773,8 +870,9 @@ Request :
 Request :
 
 - Method : DELETE
-- EndPoint : `/schedules/delete?{id}`
+- EndPoint : `api/schedules/delete?{id}`
 - Header :
+  - Authorization : bearer token
   - Accept : application/json
 - Response :
 ```json
@@ -789,7 +887,7 @@ Request :
 Request :
 
 - Method : GET
-- EndPoint : `/schedules/getAllSchedules`
+- EndPoint : `/api/schedules/getAllSchedules`
 - Header :
   - Accept : application/json
 - Response :
@@ -821,7 +919,7 @@ Request :
 Request :
 
 - Method : GET
-- EndPoint : `/schedules/getSchedulesByFilmId?{id}`
+- EndPoint : `/api/schedules/getSchedulesByFilmId?{id}`
 - Header :
   - Accept : application/json
 - Response :
@@ -853,7 +951,7 @@ Request :
 Request :
 
 - Method : POST
-- EndPoint : `/invoice/getInvoice`
+- EndPoint : `/api/invoice/getInvoice`
 - Header :
   - Content-Type : application/json
   - Accept : application/json

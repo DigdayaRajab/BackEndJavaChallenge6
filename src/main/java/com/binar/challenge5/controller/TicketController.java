@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/files")
+@RequestMapping("/api/files")
 public class TicketController {
     @Autowired
     TicketService ticketService;

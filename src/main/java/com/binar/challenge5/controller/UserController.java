@@ -1,80 +1,85 @@
 package com.binar.challenge5.controller;
 
-        import com.binar.challenge5.model.CommonResponse;
-        import com.binar.challenge5.model.CommonResponseGenerator;
-        import com.binar.challenge5.model.request.UsersRequest;
-        import com.binar.challenge5.service.Interface.UsersService;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.http.HttpStatus;
-        import org.springframework.http.ResponseEntity;
-        import org.springframework.web.bind.annotation.*;
+import com.binar.challenge5.entities.Users;
+import com.binar.challenge5.model.CommonResponse;
+import com.binar.challenge5.model.CommonResponseGenerator;
+import com.binar.challenge5.model.request.FilmUpdateRequest;
+import com.binar.challenge5.model.request.UpdateUserRequest;
+import com.binar.challenge5.model.request.UsersRequest;
+import com.binar.challenge5.model.response.FilmScheduleResponse;
+import com.binar.challenge5.model.response.UsersResponse;
+import com.binar.challenge5.service.Interface.UsersService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@Slf4j
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/user")
 public class UserController {
     @Autowired
     UsersService usersService;
     @Autowired
     CommonResponseGenerator commonResponseGenerator;
 
-    @PostMapping(value = "/add", produces = "application/json", consumes = "application/json")
-    public CommonResponse<ResponseEntity> addNewUser(@RequestBody UsersRequest paramUser) {
-        try {
-            return commonResponseGenerator.successResponse(new ResponseEntity(usersService.newUser(paramUser), HttpStatus.OK).getBody(), "Success Add Data");
-        } catch (Exception e) {
-            return commonResponseGenerator.failedResponse(new ResponseEntity("", HttpStatus.NO_CONTENT), e.getMessage());
-
-        }
-    }
-
     @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
-    public CommonResponse<ResponseEntity> updateUser(@RequestBody UsersRequest paramUser) {
+    public ResponseEntity updateUser(@RequestBody UpdateUserRequest paramUser) {
         try {
-            return commonResponseGenerator.successResponse(new ResponseEntity(usersService.updateUser(paramUser), HttpStatus.OK).getBody(), "success Edit Data");
+            Users response = usersService.updateUser(paramUser);
+            return new ResponseEntity(commonResponseGenerator.successResponse(response, "successful update data"), HttpStatus.OK);
         } catch (Exception e) {
-            return commonResponseGenerator.failedResponse(new ResponseEntity("", HttpStatus.NO_CONTENT), e.getMessage());
-
+            log.error("Update, Error : " + e.getMessage());
+            return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping("/delete")
-    public CommonResponse<ResponseEntity> deleteUser(@RequestParam("id") int id_user) {
+    public ResponseEntity deleteUser(@RequestParam("id") Integer id_user) {
         try {
             usersService.deleteUser(id_user);
-            return commonResponseGenerator.successResponse(new ResponseEntity("", HttpStatus.OK).getBody(), "Success Delete Data");
+            return new ResponseEntity(commonResponseGenerator.successResponse("", "successful delete data"), HttpStatus.OK);
         } catch (Exception e) {
-            return commonResponseGenerator.failedResponse(new ResponseEntity("", HttpStatus.NO_CONTENT), e.getMessage());
-
+            log.error("Delete, Error : " + e.getMessage());
+            return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
 
     @GetMapping(value = "getAllUser")
-    public CommonResponse<ResponseEntity> getAllUser() {
+    public ResponseEntity getAllUser() {
         try {
-            return commonResponseGenerator.successResponse(new ResponseEntity(usersService.findAllUser(), HttpStatus.OK).getBody(), "success");
+            List<Users> response = usersService.findAllUser();
+            return new ResponseEntity(commonResponseGenerator.successResponse(response, "ok"), HttpStatus.OK);
         } catch (Exception e) {
-            return commonResponseGenerator.failedResponse(new ResponseEntity("", HttpStatus.NO_CONTENT), e.getMessage());
-
+            log.error("Get All User , Error : " + e.getMessage());
+            return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/search/{id_user}")
-    public CommonResponse<ResponseEntity> searcById(@PathVariable("id_user") Integer idUser) {
+    public ResponseEntity searchById(@PathVariable("id_user") Integer idUser) {
         try {
-            return commonResponseGenerator.successResponse(new ResponseEntity(usersService.searchUserById(idUser), HttpStatus.OK).getBody(), "success");
+            Users response = usersService.searchUserById(idUser);
+            return new ResponseEntity(commonResponseGenerator.successResponse(response, "ok"), HttpStatus.OK);
         } catch (Exception e) {
-            return commonResponseGenerator.failedResponse(new ResponseEntity("", HttpStatus.NO_CONTENT), e.getMessage());
-
+            log.error("Get User By id, Error : " + e.getMessage());
+            return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/search")
-    public CommonResponse<ResponseEntity> searcByUserName(@RequestParam("username") String usrName) {
+    public ResponseEntity searchByUserName(@RequestParam("username") String usrName) {
         try {
-            return commonResponseGenerator.successResponse(new ResponseEntity(usersService.searchUserByName(usrName), HttpStatus.OK).getBody(), "success");
+            List<Users> response = usersService.searchUserByName(usrName);
+            return new ResponseEntity(commonResponseGenerator.successResponse(response, "ok"), HttpStatus.OK);
         } catch (Exception e) {
-            return commonResponseGenerator.failedResponse(new ResponseEntity("", HttpStatus.NO_CONTENT), e.getMessage());
+            log.error("Get User By Name, Error : " + e.getMessage());
+            return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 }

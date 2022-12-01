@@ -1,10 +1,12 @@
 package com.binar.challenge5.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class CommonResponse<T> {
     private String status;
     private String message;

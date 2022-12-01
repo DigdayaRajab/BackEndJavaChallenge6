@@ -17,16 +17,6 @@ public class FilmServiceImpl implements FilmService {
     FilmRepository filmRepository;
 
     @Override
-    public void newFilm(Films film) {
-        filmRepository.save(film);
-    }
-
-    @Override
-    public void deleteFilm(Films film) {
-        filmRepository.deleteById(film.getIdFilm());
-    }
-
-    @Override
     public Films save(Films films) {
         return filmRepository.save(films);
     }
@@ -36,7 +26,7 @@ public class FilmServiceImpl implements FilmService {
 
         Films film = filmRepository.findFilmsById(filmUpdateRequest.getIdFilm());
         if (film == null) {
-            throw new Exception("Data tidak ditemukan");
+            throw new Exception("Film not Found");
         }
 
         try {
@@ -73,7 +63,7 @@ public class FilmServiceImpl implements FilmService {
     public List<Films> findFilmsShow() throws Exception {
         List<Films> filmResponse = filmRepository.findFilmsShow();
         if (filmResponse == null) {
-            throw new Exception("Data tidak ditemukan");
+            throw new Exception("Films Showing Not Found");
         }
         return filmResponse;
     }
@@ -81,8 +71,8 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public List<FilmScheduleResponse> findFilmsScheduleByName(String filmName) throws Exception {
         List<FilmScheduleResponse> filmResponse = filmRepository.findFilmsScheduleByName(filmName);
-        if (filmResponse == null) {
-            throw new Exception("Data tidak ditemukan");
+        if (filmResponse == null || filmResponse.isEmpty()) {
+            throw new Exception("Films Name Not Found");
         }
         return filmResponse;
     }
@@ -91,7 +81,7 @@ public class FilmServiceImpl implements FilmService {
     public Films findFilmsById(Integer idFilm) throws Exception {
         Films filmResponse = filmRepository.findFilmsById(idFilm);
         if (filmResponse == null) {
-            throw new Exception("Data tidak ditemukan");
+            throw new Exception("Film Not Found");
         }
         return filmResponse;
     }

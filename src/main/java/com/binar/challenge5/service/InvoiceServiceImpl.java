@@ -14,6 +14,7 @@ import com.binar.challenge5.service.Interface.SeatsService;
 import com.binar.challenge5.service.Interface.UsersService;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.jfree.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -65,10 +66,11 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
 
         if (filmScheduleRes.getFilmName() == null) {
-            throw new Exception("Data Film tidak ditemukan");
+            Log.info("error");
+            throw new Exception("Data Film Not Found");
         }
         if (seat == null) {
-            throw new Exception("Seat tidak tersedia");
+            throw new Exception("Seat Not Available");
         }
 
         SeatStatusRequest seatStatusRequest = new SeatStatusRequest();

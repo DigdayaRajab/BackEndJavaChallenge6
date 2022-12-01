@@ -49,16 +49,6 @@ public class InvoiceServiceImpl implements InvoiceService {
                                 @RequestBody InvoiceRequest invoiceRequest) throws Exception {
         JasperReport sourceFileName = JasperCompileManager.compileReport
                 (ResourceUtils.getFile("src/main/resources/JasperInvoice.jrxml").getAbsolutePath());
-//                (ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX + "JasperInvoice.jrxml").getAbsolutePath());
-
-//        String strJson = null;
-//        ClassPathResource sourceFileName = new ClassPathResource("json/JasperInvoice.jrxml");
-//        try {
-//            byte[] binaryData = FileCopyUtils.copyToByteArray(classPathResource.getInputStream());
-//            strJson = new String(binaryData, StandardCharsets.UTF_8);
-//        } catch (IOException e) {
-//            throw new Exception(e.getMessage());
-//        }
 
         // creating our list of beans
         List<Map<String, String>> dataInvoice = new ArrayList<>();

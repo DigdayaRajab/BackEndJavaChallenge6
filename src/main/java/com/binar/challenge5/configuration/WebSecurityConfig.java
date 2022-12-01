@@ -60,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/film/add","/api/film/update","/api/film/delete").hasAuthority(ERoles.ADMIN.name())
                 .antMatchers("/api/user/update", "/api/user/delete", "/api/invoice/getInvoice").hasAuthority(ERoles.CUSTOMER.name())
                 .antMatchers("/api/user/**", "/api/film/**", "/api/seat/**", "/api/schedule/**", "/api/invoice/**").hasAuthority(ERoles.LORD.name())
+                .antMatchers("/api/film/add","/api/film/update","/api/film/delete", "/api/user/update", "/api/user/delete", "/api/invoice/getInvoice").hasAuthority(ERoles.LORD.name())
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

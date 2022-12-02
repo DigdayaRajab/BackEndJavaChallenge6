@@ -27,14 +27,14 @@
                 <textElement textAlignment="Center" verticalAlignment="Top">
                     <font fontName="Arial" size="32" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
                 </textElement>
-                <text><![CDATA[Mas Gun Bioskop]]></text>
+                <text><![CDATA[My Cinema Films]]></text>
             </staticText>
             <frame>
                 <reportElement mode="Opaque" x="0" y="87" width="550" height="24" forecolor="#242424" backcolor="#2B2B2B" uuid="24be2290-0df4-4ee0-b8ae-0b98eaa8d44f"/>
                 <staticText>
                     <reportElement x="479" y="-3" width="70" height="30" forecolor="#FFFFFF" uuid="11686d0a-fe47-40a4-8a14-58ffea1c20cd"/>
                     <textElement textAlignment="Center" verticalAlignment="Middle">
-                        <font fontName="SansSerif" size="16" isBold="false"/>
+                        <font fontName="Courier New" size="16" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Invoice]]></text>
                 </staticText>
@@ -45,7 +45,7 @@
                     <font size="18" isBold="false" pdfFontName="Helvetica-Oblique" isPdfEmbedded="true"/>
 
                 </textElement>
-                <text><![CDATA[Showtimes of all Theaters]]></text>
+                <text><![CDATA[Showtime of all Theaters]]></text>
             </staticText>
         </band>
     </title>
@@ -60,112 +60,112 @@
             <textField>
                 <reportElement x="340" y="40" width="100" height="30" uuid="b8610ffa-2e9b-4530-b65c-1527e7bf9712"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle">
-                    <font size="12"/>
+                    <font fontName="Courier New" size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{scheduleDate}]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="240" y="40" width="100" height="30" uuid="0b070935-6061-4010-a9a8-90c3a275f2e9"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+                    <font fontName="Courier New" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
                 </textElement>
                 <text><![CDATA[DATE]]></text>
             </staticText>
             <staticText>
                 <reportElement x="240" y="73" width="100" height="30" uuid="9f4579b0-41a9-482e-b138-365f52b70fc0"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+                    <font fontName="Courier New" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
                 </textElement>
                 <text><![CDATA[TIME]]></text>
             </staticText>
             <textField>
                 <reportElement x="340" y="73" width="100" height="30" uuid="620ea75f-6fd8-4493-8f3d-07784abf0a42"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle">
-                    <font size="12"/>
+                    <font fontName="Courier New" size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{scheduleStart}]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="240" y="138" width="100" height="30" uuid="2c8d32a1-5d53-4052-a49e-8f844741a482"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+                    <font fontName="Courier New" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
                 </textElement>
                 <text><![CDATA[PRICE]]></text>
             </staticText>
             <textField>
                 <reportElement x="340" y="138" width="100" height="30" uuid="73853b1a-a6cb-47ff-96e3-4d8357125d07"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle">
-                    <font size="12"/>
+                    <font fontName="Courier New" size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{schedulePrice}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="240" y="180" width="266" height="30" uuid="36b495d7-f075-4b33-91e0-1947f0ae3c97"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="12" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+                    <font fontName="Courier New" size="12" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{TicketId}]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="10" y="41" width="70" height="30" uuid="fb47fa7b-d2a9-402e-9585-f73b48286cf5"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+                    <font fontName="Courier New" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
                 </textElement>
                 <text><![CDATA[NAME]]></text>
             </staticText>
             <textField>
                 <reportElement x="80" y="41" width="125" height="30" uuid="d81ba0fe-ecd8-4bbd-ac1c-298ac3ad6ac4"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle">
-                    <font size="12"/>
+                    <font fontName="Courier New" size="12"/>
                     </textElement>
                 <textFieldExpression><![CDATA[$F{userName}]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="10" y="73" width="70" height="30" uuid="1404f1a9-3da8-4956-8e64-64412a013cc6"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+                    <font fontName="Courier New" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
                 </textElement>
                 <text><![CDATA[EMAIL]]></text>
             </staticText>
             <textField>
                 <reportElement x="80" y="73" width="125" height="30" uuid="2cec771e-742d-4ca5-9537-e3f2e4b67073"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle">
-                    <font size="12"/>
+                    <font fontName="Courier New" size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{userEmail}]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="240" y="105" width="100" height="30" uuid="0081db31-35f4-46fe-9095-df3d81381f0f"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+                    <font fontName="Courier New" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
                 </textElement>
                 <text><![CDATA[ROW]]></text>
             </staticText>
             <textField>
                 <reportElement x="340" y="105" width="46" height="30" uuid="05fda791-6231-446a-bb2b-d352f70c6caf"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle">
-                    <font size="12"/>
+                    <font fontName="Courier New" size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{seatStudioName}]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="390" y="105" width="68" height="30" uuid="d354cae4-efda-4a6e-851d-0069e6718b48"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+                    <font fontName="Courier New" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
                 </textElement>
                 <text><![CDATA[SEAT]]></text>
             </staticText>
             <textField>
                 <reportElement x="460" y="105" width="46" height="30" uuid="e35cb286-4447-408b-a2e1-a7cd19766250"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle">
-                    <font size="12"/>
+                    <font fontName="Courier New" size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{seatNomor}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="0" y="0" width="550" height="30" uuid="584c5c3a-b3a0-417f-8b68-99a731c165a4"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="18" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+                    <font fontName="Courier New" size="18" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{filmName}]]></textFieldExpression>
             </textField>

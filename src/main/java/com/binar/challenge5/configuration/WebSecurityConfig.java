@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/swagger-ui/**", "/v3/api-docs/**" ,"/swagger/**", "/v3/**").permitAll()
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .antMatchers("/api/auth/signin", "/api/user/signup").permitAll()
                 .antMatchers("/api/film/getFilmsShow", "/api/film/getFilmsSchedule").permitAll()
                 .antMatchers("/api/user/**", "/api/film/**", "/api/seat/**", "/api/schedule/**", "/api/invoice/**").hasAuthority(ERoles.LORD.name())

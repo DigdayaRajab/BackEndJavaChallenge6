@@ -3,6 +3,7 @@ package com.binar.challenge5.controller;
 import com.binar.challenge5.entities.Seats;
 import com.binar.challenge5.model.CommonResponseGenerator;
 import com.binar.challenge5.service.Interface.SeatsService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/seats")
+@SecurityRequirement(name = "bearerAuth")
 public class SeatsController {
 
     @Autowired

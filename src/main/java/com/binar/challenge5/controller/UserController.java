@@ -1,16 +1,11 @@
 package com.binar.challenge5.controller;
 
 import com.binar.challenge5.entities.Users;
-import com.binar.challenge5.model.CommonResponse;
 import com.binar.challenge5.model.CommonResponseGenerator;
-import com.binar.challenge5.model.request.FilmUpdateRequest;
 import com.binar.challenge5.model.request.UpdateUserRequest;
-import com.binar.challenge5.model.request.UsersRequest;
-import com.binar.challenge5.model.response.FilmScheduleResponse;
-import com.binar.challenge5.model.response.UsersResponse;
 import com.binar.challenge5.service.Interface.UsersService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +16,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/user")
+@SecurityRequirement(name = "bearerAuth")
 public class UserController {
     @Autowired
     UsersService usersService;

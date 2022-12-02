@@ -6,6 +6,7 @@ import com.binar.challenge5.model.CommonResponseGenerator;
 import com.binar.challenge5.model.request.SchedulesRequest;
 import com.binar.challenge5.model.response.ScheduleResponse;
 import com.binar.challenge5.service.Interface.ScheduleService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/schedules")
+@SecurityRequirement(name = "bearerAuth")
 public class ScheduleController {
 
     @Autowired

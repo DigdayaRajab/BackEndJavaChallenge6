@@ -7,6 +7,7 @@ import com.binar.challenge5.model.request.FilmRequest;
 import com.binar.challenge5.model.request.FilmUpdateRequest;
 import com.binar.challenge5.model.response.FilmScheduleResponse;
 import com.binar.challenge5.service.Interface.FilmService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/film")
+@SecurityRequirement(name = "bearerAuth")
 public class FilmController {
     @Autowired
     private FilmService filmService;

@@ -4,6 +4,7 @@ import com.binar.challenge5.model.CommonResponse;
 import com.binar.challenge5.model.CommonResponseGenerator;
 import com.binar.challenge5.model.request.InvoiceRequest;
 import com.binar.challenge5.service.Interface.InvoiceService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RestController
 @RequestMapping("/api/invoice")
+@SecurityRequirement(name = "bearerAuth")
 public class InvoiceController {
     @Autowired
     InvoiceService invoiceService;

@@ -2,6 +2,7 @@ package com.binar.challenge5.controller;
 
 import com.binar.challenge5.entities.Ticket;
 import com.binar.challenge5.service.Interface.TicketService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/files")
+@SecurityRequirement(name = "bearerAuth")
 public class TicketController {
     @Autowired
     TicketService ticketService;

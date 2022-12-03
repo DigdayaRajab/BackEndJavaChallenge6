@@ -1,7 +1,6 @@
 package com.binar.challenge5.controller;
 
 import com.binar.challenge5.entities.Films;
-import com.binar.challenge5.model.CommonResponse;
 import com.binar.challenge5.model.CommonResponseGenerator;
 import com.binar.challenge5.model.request.FilmRequest;
 import com.binar.challenge5.model.request.FilmUpdateRequest;
@@ -14,12 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/film")
+@RequestMapping(value = "/api/film",
+        consumes= APPLICATION_JSON_VALUE,
+        produces = APPLICATION_JSON_VALUE)
 @SecurityRequirement(name = "bearerAuth")
 public class FilmController {
     @Autowired

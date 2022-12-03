@@ -40,10 +40,6 @@ public class InvoiceController {
             headers.add("filename","InvoiceTicket.pdf");
             headers.add("content-type","multipart / form-data");
 
-//            content-disposition: attachment; filename = test.xlsx
-//            content-type: multipart / form-data
-//            invoiceService.generateInvoice(response, invoiceRequest);
-
             byte[] data = invoiceService.generateInvoice(response, invoiceRequest);
 
             return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);

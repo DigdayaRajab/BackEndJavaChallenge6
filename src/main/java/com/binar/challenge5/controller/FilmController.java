@@ -39,7 +39,7 @@ public class FilmController {
         }
     }
 
-    @PutMapping(value = "/update", produces = "application/json")
+    @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
     public ResponseEntity updateFilm(@RequestBody FilmUpdateRequest paramUser) {
         try {
             FilmUpdateRequest response = filmService.updateFilm(paramUser);
@@ -62,7 +62,7 @@ public class FilmController {
     }
 
 
-    @GetMapping(value = "/getAllFilms", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/getAllFilms", produces = "application/json", consumes = {"application/xml","application/json"})
     public ResponseEntity findAllFilms() {
         try {
             List<Films> response = filmService.findAll();

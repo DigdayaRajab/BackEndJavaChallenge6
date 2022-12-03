@@ -1,4 +1,7 @@
 # API Spec Ticket Reservation
+
+Demo : https://digdayaticketbioskop.up.railway.app
+
 - Auth
 - User
 - Film
@@ -9,6 +12,10 @@
 
 #
 ## Authentication Role
+### Additional Access Admin and Customer Role
+- User : POST
+- Film : GET(filmShow)
+- Film : GET(scheduleByFilmName)
 ### Admin Role
 - Film : POST, PUT, DELETE
 ```json
@@ -17,7 +24,6 @@
   "password": "admin"
 }
 ```
-
 ### Customer Role
 - User : PUT, DELETE
 - Invoice : POST
@@ -27,11 +33,7 @@
   "password": "customer"
 }
 ```
-### All User Role
-- User : POST
-- Film : GET(filmShow)
-- Film : GET(scheduleByFilmName)
-
+### Access to all endpoint
 
 
 

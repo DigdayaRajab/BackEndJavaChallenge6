@@ -96,7 +96,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         JasperPrint jasperPrint = JasperFillManager.fillReport(sourceFileName, parameters, beanColDataSource);
 
         response.setContentType("application/pdf");
-        response.addHeader("Content-Disposition", "inline; filename=InvoiceTicket.pdf;");
+        response.addHeader("Content-Disposition", "attachment; filename=InvoiceTicket.pdf;");
 
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         return new byte[0];

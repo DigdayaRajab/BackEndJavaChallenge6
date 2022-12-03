@@ -39,7 +39,7 @@ public class FilmController {
         }
     }
 
-    @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
+    @PutMapping(value = "/update", produces = "application/json")
     public ResponseEntity updateFilm(@RequestBody FilmUpdateRequest paramUser) {
         try {
             FilmUpdateRequest response = filmService.updateFilm(paramUser);

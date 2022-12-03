@@ -36,9 +36,12 @@ public class InvoiceController {
     public ResponseEntity getInvoice(HttpServletResponse response, @RequestBody InvoiceRequest invoiceRequest) {
         try {
             HttpHeaders headers = new HttpHeaders();
-            headers.add(
-                    "Content-Disposition",
-                    "attachment; filename=invoice.pdf");
+            headers.add("content-disposition","attachment");
+            headers.add("filename","InvoiceTicket.pdf");
+            headers.add("content-type","multipart / form-data");
+
+//            content-disposition: attachment; filename = test.xlsx
+//            content-type: multipart / form-data
 //            invoiceService.generateInvoice(response, invoiceRequest);
 
             byte[] data = invoiceService.generateInvoice(response, invoiceRequest);

@@ -9,7 +9,9 @@ import com.binar.challenge5.service.Interface.FilmService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +21,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/film",
-        produces = APPLICATION_JSON_VALUE)
+@RequestMapping("/api/film")
 @SecurityRequirement(name = "bearerAuth")
 public class FilmController {
     @Autowired
@@ -62,11 +63,15 @@ public class FilmController {
     }
 
 
-    @GetMapping(value = "/getAllFilms", produces = "application/json", consumes = {"application/xml","application/json"})
+    @GetMapping(value = "/getAllFilms")
     public ResponseEntity findAllFilms() {
         try {
             List<Films> response = filmService.findAll();
-            return new ResponseEntity(commonResponseGenerator.successResponse( response, "ok"), HttpStatus.OK);
+//            return new ResponseEntity(commonResponseGenerator.successResponse( response, "ok"), HttpStatus.OK);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("content-type","application/json");
+            return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(commonResponseGenerator.successResponse( response, "ok"));
         } catch (Exception e) {
             log.error("Get All, Error : " + e.getMessage());
             return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);
@@ -75,7 +80,7 @@ public class FilmController {
 
 
     //  All User Access
-    @GetMapping(value = "/getFilmsShow", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/getFilmsShow")
     public ResponseEntity findFilmsShow() {
         try {
             List<Films> response = filmService.findFilmsShow();

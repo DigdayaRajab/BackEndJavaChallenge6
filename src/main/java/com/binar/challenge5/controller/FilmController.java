@@ -71,7 +71,7 @@ public class FilmController {
 
             HttpHeaders headers = new HttpHeaders();
             headers.add("content-type","application/json");
-            return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(commonResponseGenerator.successResponse( response, "ok"));
+            return ResponseEntity.ok().headers(headers).body(commonResponseGenerator.successResponse( response, "ok"));
         } catch (Exception e) {
             log.error("Get All, Error : " + e.getMessage());
             return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);

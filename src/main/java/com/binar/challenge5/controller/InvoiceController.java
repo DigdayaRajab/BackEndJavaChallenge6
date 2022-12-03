@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,12 +35,19 @@ public class InvoiceController {
     @PostMapping("/getInvoice")
     public ResponseEntity getInvoice(HttpServletResponse response, @RequestBody InvoiceRequest invoiceRequest) {
         try {
-            invoiceService.generateInvoice(response, invoiceRequest);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(
+                    "Content-Disposition",
+                    "attachment; filename=invoice.pdf");
+//            invoiceService.generateInvoice(response, invoiceRequest);
+
+            byte[] data = invoiceService.generateInvoice(response, invoiceRequest);
+
+            return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
         } catch (Exception e) {
             log.error("Generate , Error : " + e.getMessage());
             return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);
         }
-        return null;
     }
 
 }

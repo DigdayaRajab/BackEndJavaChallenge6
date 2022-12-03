@@ -20,7 +20,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/film",
-        consumes= APPLICATION_JSON_VALUE,
         produces = APPLICATION_JSON_VALUE)
 @SecurityRequirement(name = "bearerAuth")
 public class FilmController {

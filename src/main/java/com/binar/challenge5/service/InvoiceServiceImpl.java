@@ -16,15 +16,11 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.jfree.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,8 +41,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     CommonResponseGenerator commonResponseGenerator;
 
     @Override
-    public void generateInvoice(HttpServletResponse response,
-                                @RequestBody InvoiceRequest invoiceRequest) throws Exception {
+    public byte[] generateInvoice(HttpServletResponse response,
+                                  @RequestBody InvoiceRequest invoiceRequest) throws Exception {
         JasperReport sourceFileName = JasperCompileManager.compileReport
                 (ResourceUtils.getFile("src/main/resources/JasperInvoice.jrxml").getAbsolutePath());
 
@@ -103,5 +99,6 @@ public class InvoiceServiceImpl implements InvoiceService {
         response.addHeader("Content-Disposition", "inline; filename=InvoiceTicket.pdf;");
 
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return new byte[0];
     }
 }

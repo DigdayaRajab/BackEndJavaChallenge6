@@ -8,5 +8,5 @@ import javax.servlet.http.HttpServletResponse;
 
 @Service
 public interface InvoiceService {
-    void generateInvoice(HttpServletResponse response, @RequestBody InvoiceRequest invoiceRequest) throws Exception;
+    byte[] generateInvoice(HttpServletResponse response, @RequestBody InvoiceRequest invoiceRequest) throws Exception;
 }

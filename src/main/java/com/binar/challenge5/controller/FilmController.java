@@ -63,7 +63,7 @@ public class FilmController {
     }
 
 
-    @GetMapping(value = "/getAllFilms", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/getAllFilms")
     public ResponseEntity findAllFilms() {
         try {
             List<Films> response = filmService.findAll();
@@ -79,7 +79,7 @@ public class FilmController {
 
 
     //  All User Access
-    @GetMapping(value = "/getFilmsShow", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/getFilmsShow")
     public ResponseEntity findFilmsShow() {
         try {
             List<Films> response = filmService.findFilmsShow();
@@ -93,7 +93,7 @@ public class FilmController {
         }
     }
 
-    @GetMapping(value = "/getFilmsSchedule", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/getFilmsSchedule")
     public ResponseEntity findFilmsScheduleByName(@RequestParam("film_name") String filmName) {
         try {
             List<FilmScheduleResponse> response = filmService.findFilmsScheduleByName(filmName);

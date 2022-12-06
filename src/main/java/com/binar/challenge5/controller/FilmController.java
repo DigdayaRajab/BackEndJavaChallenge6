@@ -63,11 +63,10 @@ public class FilmController {
     }
 
 
-    @GetMapping(value = "/getAllFilms")
+    @GetMapping(value = "/getAllFilms", produces = "application/json", consumes = "application/json")
     public ResponseEntity findAllFilms() {
         try {
             List<Films> response = filmService.findAll();
-//            return new ResponseEntity(commonResponseGenerator.successResponse( response, "ok"), HttpStatus.OK);
 
             HttpHeaders headers = new HttpHeaders();
             headers.add("content-type","application/json");
@@ -80,11 +79,14 @@ public class FilmController {
 
 
     //  All User Access
-    @GetMapping(value = "/getFilmsShow")
+    @GetMapping(value = "/getFilmsShow", produces = "application/json", consumes = "application/json")
     public ResponseEntity findFilmsShow() {
         try {
             List<Films> response = filmService.findFilmsShow();
-            return new ResponseEntity(commonResponseGenerator.successResponse( response, "ok"), HttpStatus.OK);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("content-type","application/json");
+            return ResponseEntity.ok().headers(headers).body(commonResponseGenerator.successResponse( response, "ok"));
         } catch (Exception e) {
             log.error("Get Film Show, Error : " + e.getMessage());
             return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);
@@ -95,7 +97,9 @@ public class FilmController {
     public ResponseEntity findFilmsScheduleByName(@RequestParam("film_name") String filmName) {
         try {
             List<FilmScheduleResponse> response = filmService.findFilmsScheduleByName(filmName);
-            return new ResponseEntity(commonResponseGenerator.successResponse( response, "ok"), HttpStatus.OK);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("content-type","application/json");
+            return ResponseEntity.ok().headers(headers).body(commonResponseGenerator.successResponse( response, "ok"));
         } catch (Exception e) {
             log.error("Get Schedule By Name, Error : " + e.getMessage());
             return new ResponseEntity(commonResponseGenerator.failedClientResponse("400", e.getMessage()), HttpStatus.BAD_REQUEST);
